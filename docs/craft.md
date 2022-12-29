@@ -53,7 +53,6 @@ Add a ```nodemon.json``` with de following content :
   "ignore": [],
   "exec": "npx ts-node ./src/index.ts"
 }
-`
 ```
 
 
@@ -69,13 +68,11 @@ npm install --save-dev rimraf
 Part of ```package.json```
 
 ```json
-...
 "scripts": {
     "start": "npx tsc && node build/index.js",
     "build": "npx tsc",
     "dev": "npx nodemon",
     "clean": "npx rimraf ./build",
   }
-...
 ```
 
