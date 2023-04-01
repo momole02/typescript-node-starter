@@ -11,7 +11,7 @@ import { Task, TaskDoneCallback, TaskParameters, WWorker, WorkerPoolTaskInfo, kT
 /**
  * Classe permettant de gérer un pool de threads (Workers)
  */
-class WorkerPool extends EventEmitter
+export class WorkerPool extends EventEmitter
 {
   private numThreads: number;
   private workers: any[]; 
