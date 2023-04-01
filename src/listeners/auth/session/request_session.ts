@@ -1,5 +1,5 @@
 
-import { EventListenerCallback, SendCallback } from "../../../intelo/event_handler";
+import { EventListenerCallback, SendCallback } from "../../../broker/event_handler";
 import { glo } from "../../../services/logger/logger";
 
 export const requestSession:EventListenerCallback = async (data: any, send: SendCallback, abort) => {

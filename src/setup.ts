@@ -1,5 +1,5 @@
-import { handler } from "./intelo/intelo";
-import { requestSession } from "./handlers";
+import { handler } from "./broker/intelo";
+import { requestSession } from "./listeners";
 
 const events = {
   requestSession: "requestSession"
