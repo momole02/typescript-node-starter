@@ -1,4 +1,5 @@
 import { glo } from "../services/logger/logger";
+import { EventHandlerError } from "./error";
 import { GlobalEventHandler, SendCallback } from "./event_handler";
 
 /**
@@ -69,8 +70,7 @@ export class MessageBroker
    * @param payload 
    * @returns 
    */
-  async dispatch(
-    payload: any , send: SendCallback) :Promise<CommonResponse> {
+  async dispatch(payload: CommonRequest , send: SendCallback) :Promise<CommonResponse> {
       try{
         const message = payload;
         if(null == message){

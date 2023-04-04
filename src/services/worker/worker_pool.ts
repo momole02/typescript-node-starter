@@ -13,17 +13,19 @@ import { Task, TaskDoneCallback, TaskParameters, WWorker, WorkerPoolTaskInfo, kT
  */
 export class WorkerPool extends EventEmitter
 {
-  private numThreads: number;
   private workers: any[]; 
   private freeWorkers: any[];
   private tasks: Task[];
 
   /**
    * Constructeur
+   * 
+   * @param {number} numThreads
+   * 
+   * 
    */
-  constructor(numThreads: number) {
+  constructor(private numThreads: number) {
     super(); 
-    this.numThreads = numThreads;
     this.workers = [];
     this.freeWorkers = [];
     this.tasks = [];
@@ -47,7 +49,7 @@ export class WorkerPool extends EventEmitter
    */
   private addNewWorker() {
 
-    const ww = new WWorker("worker_tasks/task_processor.js");
+    const ww = new WWorker("./src/worker_tasks/task_processor.js");
     ww.worker.on("message" , (result) => {
       // A la fin on appelle le callback avec le resultat
       ww[kTaskInfo]!.done(null, result);

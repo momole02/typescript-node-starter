@@ -1,8 +1,9 @@
 import { glo, GlobalLogger } from "./services/logger/logger"
 import {WebSocketServer} from "ws";
 import { IncomingMessage } from "http";
-import { broker, CommonResponse, MessageBroker } from "./broker/intelo";
+import { broker } from "./broker/intelo";
 import { setupIntelo } from "./setup";
+import { MessageBroker } from "./broker/message_broker";
 
 /// Retourne l'addresse ip du client à partir du message
 /// [req]

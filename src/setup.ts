@@ -1,11 +1,13 @@
 import { handler } from "./broker/intelo";
-import { requestSession } from "./listeners";
+import { requestSession, runSimpleTask } from "./listeners";
 
 const events = {
-  requestSession: "requestSession"
+  requestSession: "requestSession",
+  runSimpleTask: "runSimpleTask"
 };
 
 
 export const setupIntelo = () => {
   handler.on(events.requestSession , [requestSession]);
+  handler.on(events.runSimpleTask, [runSimpleTask]);
 }

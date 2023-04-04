@@ -1,3 +1,3 @@
 import { requestSession } from "./auth";
-
-export {requestSession }
+import { runSimpleTask } from "./pipeline";
+export {requestSession, runSimpleTask }
