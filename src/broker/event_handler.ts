@@ -1,9 +1,10 @@
 import { glo } from "../services/logger/logger";
+import { CommonRequest, CommonResponse } from "./message_broker";
 
 /**
  * Callback de reponse
  */
-export type SendCallback = (resp:any) => void
+export type SendCallback = (resp:CommonResponse) => void
 /**
  * Callback de reponse à un évenement
  */
@@ -30,7 +31,7 @@ export class GlobalEventHandler
    * @param {EventListenerCallback[]} callbacks 
    */
   on(eventName:string, callbacks:EventListenerCallback[]) {
-        glo.console.log(`Registering handler event=${eventName}`)
+        glo.console.log(`Registering listener for event {${eventName}}`)
         this.handlers[eventName] = callbacks;
   }
   /**
@@ -49,11 +50,11 @@ export class GlobalEventHandler
    * @param {any} data 
    * @param {SendCallback} send 
    */
-  async handleDefault(eventName: string, data:any, send: SendCallback):Promise<any>{
+  async handleDefault(eventName: string, request:CommonRequest, send: SendCallback):Promise<any>{
     let aborted = false;
     if(eventName in this.handlers) {  
       for(let k = 0 ;!aborted &&  k < this.handlers[eventName].length ; ++k){
-        this.handlers[eventName][k](data, send, () => aborted = true);
+        this.handlers[eventName][k](request, send, () => aborted = true);
       }
     }
   }

@@ -2,7 +2,7 @@ import { glo, GlobalLogger } from "./services/logger/logger"
 import {WebSocketServer} from "ws";
 import { IncomingMessage } from "http";
 import { broker } from "./broker/intelo";
-import { setupIntelo } from "./setup";
+import { setupListeners } from "./setup";
 import { MessageBroker } from "./broker/message_broker";
 
 /// Retourne l'addresse ip du client à partir du message
@@ -34,13 +34,13 @@ export const bootstrapApp = (port: number) => {
       // En cas d'interception de message
       ws.on("message" ,(data) => {
           glo.console.info("Got message processing ...");
-          glo.console.debug(data.toString());
+          glo.console.debug(JSON.parse(data.toString()))
           // Le message est transféré à la bonne entité
           broker.dispatch(MessageBroker.fromBuffer(data) , (data) => ws.send(JSON.stringify(data)))
             .then()
       });
     });
   glo.console.log(`Websocket server listening on ::1:${port}`)
-  setupIntelo();
+  setupListeners();
 };
 

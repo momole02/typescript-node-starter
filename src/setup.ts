@@ -1,13 +1,16 @@
 import { handler } from "./broker/intelo";
-import { requestSession, runSimpleTask } from "./listeners";
+import { events } from "./events";
+import { requestSession, 
+  createVMTask, 
+  runVMTask, 
+  checkVMTask, 
+  terminateVMTask } from "./listeners";
 
-const events = {
-  requestSession: "requestSession",
-  runSimpleTask: "runSimpleTask"
-};
 
-
-export const setupIntelo = () => {
+export const setupListeners = () => {
   handler.on(events.requestSession , [requestSession]);
-  handler.on(events.runSimpleTask, [runSimpleTask]);
+  handler.on(events.runVMTask, [runVMTask]);
+  handler.on(events.createVMTask, [createVMTask]);
+  handler.on(events.checkVMTask, [checkVMTask])
+  handler.on(events.terminateVMTask, [terminateVMTask])
 }

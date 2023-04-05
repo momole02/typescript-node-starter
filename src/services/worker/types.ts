@@ -2,13 +2,28 @@
 import path from "node:path";
 import { Worker } from "worker_threads";
 import { AsyncResource } from "async_hooks";
-export interface TaskParameters {
-  a: number;
-  b: number;
+import { WorkerPool } from "./worker_pool";
+
+/**
+ * Données d'execution d'une tâche VM
+ */
+export interface VMRuntimeContext {
+  context: string;  /** Le contexte d'execution de la VM */
+  code: string;     /** Code source en javascript*/
 }
+/**
+ * Contient les données relatives à une tache longue
+ * Faisant intervenir la VM
+ */
+export interface VMTask
+{
+  id: string;      /** ID de la tâche */ 
+  runtime: VMRuntimeContext; /** données d'execution */
+  status: string;   /** Status de la tâche */
+ }
 
 export interface Task {
-  task: TaskParameters; 
+  task: VMTask; 
   callback: TaskDoneCallback;
 }
 
@@ -64,4 +79,11 @@ export class WWorker {
   set [kTaskInfo](info: WorkerPoolTaskInfo | null) {
     this.taskInfo = info;
   }
+}
+
+export const VMTaskStatus = {
+  waiting: "waiting",
+  running: "running",
+  stopped: "stopped",
+  terminated: "terminated"
 }

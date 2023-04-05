@@ -8,6 +8,7 @@ import { GlobalEventHandler, SendCallback } from "./event_handler";
  * */ 
 export interface CommonRequest
 {
+  id: string; /** ID de la requête */
   event: string; /** Nature de l'évenement */
   data: any; /** données de l'évenement */
 }
@@ -21,6 +22,7 @@ export interface CommonResponse
   errorCode?: string; /** Code d'erreur (en cas d'erreur)*/
   data?: any; /** Données */
   error?: any; /** Données d'erreur */
+  requestId: string; /** ID de la requête associé */
 }
 
 /**
@@ -78,10 +80,11 @@ export class MessageBroker
         }
         const data = await GlobalEventHandler
             .instance
-            .handleDefault(message.event, message.data, send)
+            .handleDefault(message.event, message, send)
         return {
           success: true, 
           data, 
+          requestId: payload.id,
         }
       }catch(error){
         // TODO : Implémenter un bon gestionnaire d'erreurs
@@ -89,6 +92,7 @@ export class MessageBroker
         return {
           success: false, 
           error,
+          requestId: payload.id,
         }
       }
   }

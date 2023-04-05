@@ -1,3 +1,9 @@
 import { requestSession } from "./auth";
-import { runSimpleTask } from "./pipeline";
-export {requestSession, runSimpleTask }
+import { createVMTask, runVMTask , checkVMTask, terminateVMTask} from "./pipeline";
+export {
+  requestSession,
+  runVMTask,
+  createVMTask,
+  checkVMTask,
+  terminateVMTask,
+}
